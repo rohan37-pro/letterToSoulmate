@@ -126,10 +126,10 @@
     <p id='mainMessage' class="hiddenmain">🎉 Happy Birthday Lekhika!! 🥳🎂 Many many happy returns of the day 🎈💖 </p>
     <div class="btn-group">
       <button id="celebrateBtn">Celebrate!</button>
-      <button id="messageBtn" style="display:none;">📩 Message</button>
+      <button id="messageBtn" style="display:none;">📩 Letter</button>
       <button id="muteBtn">🔊 Mute</button>
     </div>
-    <div class="envelope" id="envelope">
+    <div class="envelope" id="envelope" onclick="window.location.href='letter.html'">
       <div class="face front"></div>
       <div class="flap"></div>
       <div class="face back"></div>
@@ -138,17 +138,20 @@
     </div>
   </div>
   <canvas id="fwCanvas"></canvas>
-  <audio id="bgMusic" src="song.mp3" autoplay loop></audio>
+  <audio id="bgMusic" src="song2.mp3" autoplay loop></audio>
   <script>
-    const recipientName = "Sampu";
-    const senderName = "Dip";
+    const recipientName = "Lekhika";
+    const senderName = "Fan";
 
     document.getElementById('titleText').innerHTML = `🎊 Happy Birthday, ${recipientName}! 🎊`;
-    document.getElementById('letter').innerHTML = `
-      <strong>Dear ${recipientName},</strong><br><br>
-      Wishing you the happiest of birthdays! I may not know how your past days were, but I do know this—starting now, I’ll guard your heart like my own 💖. I won’t let sorrow touch you 🌧️🚫. I’ll stand by you, through every high and low 🌄🌊. babyyy is my promise 🤝❤️.<br><br>
-      <em>With babyyy,</em><br>${senderName}
-    `;
+    fetch('letter.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('letter').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Error loading letter:', error);
+    });
 
     const music = document.getElementById('bgMusic');
     document.getElementById('muteBtn').addEventListener('click', () => {
